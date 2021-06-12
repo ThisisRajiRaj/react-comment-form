@@ -1,0 +1,8 @@
+1- Clean up copy=past in blog manager
+2- Document in comment form what APIs and retuns the component is expecting
+3- Make comment form more robust
+4- Make new APIs more robust in API project
+5- Make comment for npm publishable
+6- Add comment form to rajirajcom
+7- New APIs to document in readme.cmd: GetBlogMetadata, UpdateLikes, Comments
+8- remove devflag override
