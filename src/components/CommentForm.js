@@ -128,7 +128,7 @@ class CommentFormImpl extends React.Component {
             {
                 "fromemail": this.state.email,
                 "from": this.state.name,
-                "message": this.state.message,
+                "message": `Parent Id:${this.parentId}. Message: ${this.state.message}`,
                 "devflag": "false"
             });
 
