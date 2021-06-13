@@ -203,9 +203,10 @@ class CommentFormImpl extends React.Component {
 
 
                     <Form.Group controlId="formEmail" onChange={this.handleEmailChange}>
+                        <Form.Label>Email</Form.Label>
                         <Form.Control required={false} type="email" placeholder="Enter email" />
                         <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
+                            We'll never share your email address with anyone else and it will not be displayed on the site.
                         </Form.Text>
                     </Form.Group>
 

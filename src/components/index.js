@@ -1,5 +1,5 @@
 import React from "react";
-import CommentFormImpl from "./CommentFormImpl";
+import CommentFormImpl from "./CommentForm";
 
 function CommentForm(props) {
   return (
