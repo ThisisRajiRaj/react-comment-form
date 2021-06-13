@@ -85,6 +85,9 @@ class CommentFormImpl extends React.Component {
             .then(response => { return response.json(); })
             .then(res => { this.setState({ likes: res }); })
             .catch(error => { this.setState({ result: "An error occurred. Please try again later." }); });
+        if(value === true) {
+            this.sendEmail("Someone liked this post!")
+        }
     }
 
     createNewComment(blogname) {
@@ -117,7 +120,7 @@ class CommentFormImpl extends React.Component {
             .catch(error => { this.setState({ result: "An error occurred. Please try again later." }); });
     }
 
-    sendEmail() {
+    sendEmail(message) {
         if (process.env.REACT_APP_SENDMAIL === "false") {
             return;
         }
@@ -128,7 +131,7 @@ class CommentFormImpl extends React.Component {
             {
                 "fromemail": this.state.email,
                 "from": this.state.name,
-                "message": `Parent Id:${this.parentId}. Message: ${this.state.message}`,
+                "message": `Parent Id:${this.props.parentId}. Message:${message}`,
                 "devflag": "false"
             });
 
@@ -174,7 +177,7 @@ class CommentFormImpl extends React.Component {
         }
         this.setState({ result: '' })
         this.createNewComment(this.props.parentId)
-        this.sendEmail();
+        this.sendEmail(this.state.message);
 
         if (this.state.result === '') {
             this.setState({
