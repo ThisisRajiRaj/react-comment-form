@@ -6,7 +6,7 @@ import DOMPurify from 'dompurify'
 import './Comment.css'
 import Like from './Like'
 
-class CommentForm extends React.Component {
+class CommentFormImpl extends React.Component {
     constructor(props) {
         super(props);
         this.state = { email: '', message: '', name: '', result: '', verified: false, like: false, comments: "", likes: 0 };
@@ -18,20 +18,19 @@ class CommentForm extends React.Component {
         this.handleLikeChange = this.handleLikeChange.bind(this);
     }
 
-
     onVerify = recaptchaResponse => {
         this.setState({
             verified: false
         });
-        if (recaptchaResponse !== null ) {
+        if (recaptchaResponse !== null) {
             this.setState({
                 verified: true
-            });   
+            });
         }
     };
 
     componentDidMount() {
-        this.getBlogInfo(this.props.blogPostId)
+        this.getBlogInfo(this.props.parentId)
     }
 
     getBlogInfo(blogname) {
@@ -113,7 +112,7 @@ class CommentForm extends React.Component {
         fetch(
             postStatsAPIUrl,
             requestOptions)
-            .then(response => { return response.text()})
+            .then(response => { return response.text() })
             .then(res => { this.setState({ comments: res }); })
             .catch(error => { this.setState({ result: "An error occurred. Please try again later." }); });
     }
@@ -145,13 +144,14 @@ class CommentForm extends React.Component {
         fetch(
             url + "?code=" + process.env.REACT_APP_SENDMAIL_API_KEY,
             requestOptions)
-            .then(response => response.text());
+            .then(response => response.text())
+            .catch(error => { this.setState({ result: "An error occurred. Please try again later." }); });
 
     }
 
     handleLikeChange(value) {
         this.setState({ like: value });
-        this.addLike(value, this.props.blogPostId)
+        this.addLike(value, this.props.parentId)
     }
 
     handleNameChange(event) {
@@ -168,17 +168,17 @@ class CommentForm extends React.Component {
 
     handleSubmit(event) {
         if (this.state.message === "" ||
-            this.state.name === "" ) {
+            this.state.name === "") {
             this.setState({ result: 'Please fill in all fields before submitting.' })
             return;
         }
         this.setState({ result: '' })
-        this.createNewComment(this.props.blogPostId)
+        this.createNewComment(this.props.parentId)
         this.sendEmail();
-        
-        if (this.state.result === '') {  
+
+        if (this.state.result === '') {
             this.setState({
-                message : '',
+                message: '',
                 email: '',
                 name: ''
             })
@@ -194,7 +194,7 @@ class CommentForm extends React.Component {
                 <br />
                 <Like currentLikes={this.state.likes} onLikeChange={this.handleLikeChange}></Like>
                 <br />
-                <Form id='myForm' ref={ form => this.messageForm = form }>
+                <Form id='myForm' ref={form => this.messageForm = form}>
 
                     <Form.Group controlId="formName" onChange={this.handleNameChange}>
                         <Form.Label>Name<span className="required">*</span></Form.Label>
@@ -231,4 +231,4 @@ class CommentForm extends React.Component {
     }
 }
 
-export default CommentForm;
+export default CommentFormImpl;

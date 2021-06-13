@@ -1,7 +1,33 @@
 {
   "name": "react-comment-form",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
+  "private": false,
+  "files": [
+    "dist/Comments.css",
+    "dist/CommentForm.js",
+    "dist/index.js",
+    "dist/Like.js"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "babel": {
+    "presets": [
+      "react",
+      "env",
+      "stage-2"
+    ]
+  },
+  "author": "Raji Rajagopalan",
+  "description": "A component to render a comment form and Like widget for your website or blog",
+  "repository": "https://github.com/ThisisRajiRaj/react-comment-form",
+  "keywords": [
+    "blog",
+    "comment",
+    "Likes",
+    "social media",
+    "engagement"
+  ],
+  "license": "MIT License",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -19,7 +45,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publish:build": "SET NODE_ENV=production && rm -rf dist && mkdir dist && npx babel src/components --out-dir dist --copy-files"
   },
   "eslintConfig": {
     "extends": [
@@ -38,5 +65,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
   }
 }

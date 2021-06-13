@@ -5,7 +5,6 @@ import Button from 'react-bootstrap/Button'
 class Like extends Component {
 
     state = { liked: false };
-
     
     render() {
         return (
@@ -14,7 +13,6 @@ class Like extends Component {
 
                     <div
                         onClick={() => {
-                            // this.toggle(); 
                             // Toggle the state variable liked
                             let localLiked = !this.state.liked;   
                             this.setState({ liked: localLiked });

@@ -4,7 +4,7 @@ import CommentForm from "./components/CommentForm"
 function App() {
   return (
     <Container>
-      <CommentForm blogPostId="motivation"/>
+      <CommentForm parentId="motivation"/>
       </Container>
  
   );
