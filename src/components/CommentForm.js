@@ -9,7 +9,18 @@ import Like from './Like'
 class CommentFormImpl extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { email: '', message: '', name: '', result: '', verified: false, like: false, comments: "", likes: 0 };
+        
+        this.previewInput = React.createRef(); 
+        this.state = { 
+            email: '', 
+            message: '', 
+            name: '', 
+            result: '', 
+            verified: false, 
+            like: false, 
+            comments: "", 
+            likes: 0,
+            messageHeight: 3 };
 
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -95,7 +106,7 @@ class CommentFormImpl extends React.Component {
         headers.append("Content-Type", "text/json");
 
         let now = new Date()
-        let datetime = now.toLocaleDateString() + " at " + now.toLocaleTimeString();
+        let datetime = now.toLocaleDateString("en-US") + " at " + now.toLocaleTimeString("en-US");
         let message = this.state.message.substring(0, 500)
         let comment = `<small>${this.state.name} said...</small><br/><br/>${message}<br/><small>${datetime}</small><br/><hr/>`;
         var postStatsAPIUrl = `${process.env.REACT_APP_COMMENTS_URL}?code=${process.env.REACT_APP_API_KEY}`;
@@ -166,7 +177,8 @@ class CommentFormImpl extends React.Component {
     }
 
     handleMessageChange(event) {
-        this.setState({ message: event.target.value });
+        this.setState({ message: event.target.value });       
+        this.setState({messageHeight: document.getElementById('formMessage').scrollHeight});
     }
 
     handleSubmit(event) {
@@ -183,7 +195,9 @@ class CommentFormImpl extends React.Component {
             this.setState({
                 message: '',
                 email: '',
-                name: ''
+                name: '',                
+                messageHeight: 3
+
             })
             this.messageForm.reset();
         }
@@ -215,7 +229,8 @@ class CommentFormImpl extends React.Component {
 
                     <Form.Group controlId="formMessage" onChange={this.handleMessageChange}>
                         <Form.Label>Message<span className="required">*</span></Form.Label>
-                        <Form.Control required={true} as="textarea" placeholder="Message" />
+                        <Form.Control required={true} as="textarea" placeholder="Message" 
+                         rows={Math.round(this.state.messageHeight / 25)}/>
                     </Form.Group>
                     <ReCAPTCHA
                         sitekey={process.env.REACT_APP_GOOGLE_CAPTCHA_SITE_KEY}
